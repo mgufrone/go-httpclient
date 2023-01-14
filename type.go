@@ -21,4 +21,5 @@ type Client interface {
 	// RoundTrip is similar to `RoundTrip` method inside http.RoundTripper
 	// but it will apply registered  interceptors then transform the response
 	RoundTrip(r *http.Request) (*http.Response, error)
+	Do(r *http.Request) (*http.Response, error)
 }

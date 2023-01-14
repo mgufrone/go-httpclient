@@ -45,6 +45,11 @@ func (b *baseClient) RoundTrip(request *http.Request) (*http.Response, error) {
 	return res, err
 }
 
+// Do is a shorthand for RoundTrip
+func (b *baseClient) Do(request *http.Request) (*http.Response, error) {
+	return b.RoundTrip(request)
+}
+
 func (b *baseClient) AddInterceptor(interceptor interceptor.Interceptor) Client {
 	b.interceptors = append(b.interceptors, interceptor)
 	return b
