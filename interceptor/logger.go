@@ -11,7 +11,7 @@ func RequestLogger(logger logrus.FieldLogger) Interceptor {
 	return func(req *http.Request) {
 		go func(r *http.Request) {
 			logger.Infoln("sending request", r.Method, r.URL.String(), r.Header)
-			if req.Body != nil {
+			if req.Body == nil {
 				return
 			}
 			body, err := r.GetBody()
