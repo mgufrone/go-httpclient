@@ -34,6 +34,8 @@ func main() {
   client := httpclient.Standard()
   req, _ := http.NewRequest("GET", "https://go.dev", nil)
   res, err := client.RoundTrip(req)
+  // or
+  res, err := client.Do(req) // it's a shorthand for RoundTrip
   fmt.Println(res, err)
 }
 ```
@@ -57,7 +59,7 @@ func main() {
   client = httpclient.WithTransporter(transporter)
 	
   req, _ := http.NewRequest("GET", "https://go.dev", nil)
-  res, err := client.RoundTrip(req)
+  res, err := client.Do(req)
   fmt.Println(res, err)
 }
 ```
@@ -86,7 +88,7 @@ func main() {
     return time.Millisecond
   })
   req, _ := http.NewRequest("GET", "https://go.dev", nil)
-  res, err := client.RoundTrip(req)
+  res, err := client.Do(req)
   fmt.Println(res, err)
 }
 ```
@@ -112,7 +114,7 @@ func main() {
   // it needs an implementation of http.RoundTripper
   client := httpclient.New().AddInterceptor(interceptor.Header("X-App-Id", "somelongid"))
   req, _ := http.NewRequest("GET", "https://go.dev", nil)
-  res, err := client.RoundTrip(req)
+  res, err := client.Do(req)
   // the sent request will then contains header X-App-ID: somelongid
   fmt.Println(res, err)
 }
@@ -137,7 +139,7 @@ func main() {
   // it needs an implementation of http.RoundTripper
   client := httpclient.New().AddInterceptor(transformer.SuccessOnly)
   req, _ := http.NewRequest("GET", "https://go.dev", nil)
-  res, err := client.RoundTrip(req)
+  res, err := client.Do(req)
   // if the response is lower than 200 or higher than 299, the error would not be nil
   fmt.Println(res, err)
 }
